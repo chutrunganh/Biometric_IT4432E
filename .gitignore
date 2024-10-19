@@ -1,6 +1,7 @@
-# igonre positive and anchor folder in the data folder
+# igonre positive, negative,anchor folder in the data folder
 data/anchor
 data/positive
+data/negative
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
