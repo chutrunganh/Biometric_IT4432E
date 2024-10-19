@@ -1,3 +1,7 @@
+# igonre positive and anchor folder in the data folder
+data/anchor
+data/positive
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
