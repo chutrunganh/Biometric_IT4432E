@@ -329,6 +329,20 @@ Step 1: Face detection
 In openCV, the face detection is done by using Haar Cascades (còn gọi là phương pháp Viola-Jones). Haar Cascade is a machine learning object detection algorithm used to identify objects in an image or video and based on the concept of features proposed by Paul Viola and Michael Jones in their paper "Rapid Object Detection using a Boosted Cascade of Simple Features" in 2001. 
 
 
+
+
+
+### Approach Model
+
+
+
+One shot learning with Siamese Networks
+https://vinbigdata.com/kham-pha/tong-quan-ve-one-shot-learning-trong-thi-giac-may-tinh.html
+
+
+https://www.cs.cmu.edu/~rsalakhu/papers/oneshot1.pdf
+
+
 Reference: 
 
 https://tiensu.github.io/blog/52_face_recognition/
