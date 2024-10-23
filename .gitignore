@@ -3,6 +3,9 @@ data/anchor
 data/positive
 data/negative
 
+# ignore the model save file
+*.h5
+
 # ignore the model checkpoint folder
 training_checkpoints
 
