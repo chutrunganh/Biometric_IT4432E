@@ -4,7 +4,7 @@ data/positive
 data/negative
 
 # ignore the model save file
-*.h5
+fully_siamese_model.h5
 
 # ignore the model checkpoint folder
 training_checkpoints
