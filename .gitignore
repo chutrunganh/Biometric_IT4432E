@@ -17,9 +17,8 @@ training_checkpoints
 #application_data
 
 #ignore dataset
-
-data/
-preprocessed_data/
+data/*/
+preprocessed_data/*/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -1,0 +1,1 @@
+This folder contains our base dataset, which is derived from the LFW (Labeled Faces in the Wild) dataset. Due to resource constraints, we've included only a subset of the original folders. Each subfolder is named after a specific person and contains multiple images of that individual. The images are in JPEG format with size 250x250 pixels. 
