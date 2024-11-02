@@ -4,7 +4,7 @@ data/positive
 data/negative
 
 # ignore the model save file
-fully_siamese_model.h5
+fully_siamese_network.h5
 
 # ignore the model checkpoint folder
 training_checkpoints
@@ -19,6 +19,7 @@ training_checkpoints
 #ignore dataset
 data/*/
 preprocessed_data/*/
+preprocessed_data(for_Siamese)/*/
 lfw/
 
 # Byte-compiled / optimized / DLL files
