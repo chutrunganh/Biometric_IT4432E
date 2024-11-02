@@ -18,7 +18,8 @@ training_checkpoints
 
 #ignore dataset
 data/*/
-preprocessed_data/*/
+preprocessed_data/face_detect/*/
+preprocessed_data/face_embeddings/*/
 preprocessed_data(for_Siamese)/face_detect/*/
 lfw/
 
