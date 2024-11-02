@@ -20,11 +20,18 @@ training_checkpoints
 data/*/
 preprocessed_data/face_detect/*/
 preprocessed_data/face_embeddings/*/
+!preprocessed_data/face_detect/.gitkeep
+!preprocessed_data/face_embeddings/.gitkeep
+
+# Keep face_detect directory but ignore its subfolders
 preprocessed_data(for_Siamese)/face_detect/*/
+!preprocessed_data(for_Siamese)/face_detect/.gitkeep
+
 lfw/
 
 # ignore the application_data folder
 application_data/validation_images/*/
+!application_data/validation_images/.gitkeep
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
