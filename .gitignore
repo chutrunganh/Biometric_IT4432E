@@ -33,7 +33,7 @@ lfw/
 
 # ignore the application_data folder
 application_data/validation_images/*
-application_data/validation_images/.gitkeep
+!application_data/validation_images/.gitkeep
 
 
 # Byte-compiled / optimized / DLL files
