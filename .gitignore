@@ -5,6 +5,8 @@ data/negative
 
 # ignore the model save file
 fully_siamese_network.h5
+scaler.pkl
+svm_model.pkl
 
 # ignore the model checkpoint folder
 training_checkpoints
@@ -13,8 +15,6 @@ training_checkpoints
 *.zip
 *.tgz
 
-# ignore application_data
-#application_data
 
 #ignore dataset
 data/*/
@@ -22,6 +22,9 @@ preprocessed_data/face_detect/*/
 preprocessed_data/face_embeddings/*/
 preprocessed_data(for_Siamese)/face_detect/*/
 lfw/
+
+# ignore the application_data folder
+application_data/validation_images/*/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
