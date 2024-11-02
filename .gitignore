@@ -19,7 +19,7 @@ training_checkpoints
 #ignore dataset
 data/*/
 preprocessed_data/*/
-preprocessed_data(for_Siamese)/*/
+preprocessed_data(for_Siamese)/face_detect/*/
 lfw/
 
 # Byte-compiled / optimized / DLL files
