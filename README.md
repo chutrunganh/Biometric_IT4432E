@@ -4,3 +4,12 @@ Developed for the Biometric Course (Semester 20241) at HUST, this project implem
 >[!note]
 >Testing Note annotation
 
+
+App Icon
+
+![AppIcon](resources/images/icon.png)
+
+Demo For UI
+
+![DemoUI](resources/images/demoUI.png)
+
