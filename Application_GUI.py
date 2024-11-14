@@ -42,10 +42,10 @@ class CamApp(App):
         Window.set_icon('./resources/images/icon.png')
 
          # Set app title
-        self.title = 'Face Authentication App'
+        self.title = 'TruelyYou'
         
         # Optionally set window title directly
-        Window.set_title('Face Authentication App')
+        Window.set_title('TruelyYou')
 
 
         # Create the webcam, button, and verification label
@@ -286,9 +286,9 @@ class CamApp(App):
             # preprocess function from Part 3
             # The 'name' user input will be used to named the folder in the validation_images folder
             
-            # validation_images  alreadly preprocessed at the scanning process, so we just need to load the image
+            # validation_images  alreadly preprocessed at the enrollment process, so we just need to load the image
 
-            # Why need to preprocess at the scanning process, but not here? -> reduce response time in real time
+            # Why need to preprocess at the enrollment process, but not here? -> reduce response time in real time
             validation_img = cv2.imread(os.path.join(path_of_validation_subfolder, image), cv2.COLOR_BGR2GRAY)
 
             if validation_img is None:
