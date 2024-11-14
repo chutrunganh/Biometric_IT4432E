@@ -1,7 +1,6 @@
-# igonre positive, negative,anchor folder in the data folder
-data/anchor
-data/positive
-data/negative
+# igonre  the data folder
+data/
+data_backup/
 
 # ignore the model save file
 fully_siamese_network.h5
