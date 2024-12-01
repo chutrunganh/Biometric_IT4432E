@@ -1,39 +1,32 @@
 # igonre  the data folder
-data/
+data/*
+!data/README.md
 data_backup/
+lfw/
 
-# ignore the model save file
-fully_siamese_network.h5
-scaler.pkl
-svm_model.pkl
-
-# ignore the model checkpoint folder
-model_saved/training_checkpoints
-
-# igonre all zip files
-*.zip
-*.tgz
-
-
-#ignore dataset
-data/*/
+#ignore preprocessed_data folders
 preprocessed_data/face_detect/*
 preprocessed_data/face_embeddings/*
 !preprocessed_data/face_detect/.gitkeep
 !preprocessed_data/face_embeddings/.gitkeep
 
-
 # Keep face_detect directory but ignore its subfolders
 preprocessed_data(for_Siamese)/face_detect/*
 !preprocessed_data(for_Siamese)/face_detect/.gitkeep
-
-
-lfw/
 
 # ignore the application_data folder
 application_data/validation_images/*
 !application_data/validation_images/.gitkeep
 
+# ignore the model save file
+fully_siamese_network.h5
+scaler.pkl
+svm_model.pkl
+training_checkpoints/
+
+# igonre all zip files
+*.zip
+*.tgz
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
