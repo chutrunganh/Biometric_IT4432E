@@ -1,4 +1,13 @@
-# First, instell Kivy by this:
+
+"""
+Same function as the Pipeline2 Application_Siamese_CLI.ipynb, but this time we build
+the GUI for the application using Kivy framework
+
+Also, this Siamese python file need the custom L1 Layer dist from the layers.py file as dependency
+
+"""
+
+# First, install Kivy by this:
 #pip install kivy[full] kivy_examples
 
 
@@ -11,7 +20,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.image import Image as KivyImage # Prevent name conflict with PIL Image
 
-# For others
+# For others kivy components
 
 from kivy.clock import Clock
 from kivy.graphics.texture import Texture
@@ -25,32 +34,31 @@ from layers import L1Dist # Import the custom layer
 import os
 import numpy as np
 from PIL import Image
+import gc
 
 
-### Need to update to ask user for their camera ID before running the app
+# # Add this configuration code before the VerificationApp class
+# os.environ['CUDA_VISIBLE_DEVICES'] = '-1'  # Force CPU only
+# tf.config.set_visible_devices([], 'GPU')
+
+
 
 # Build app layout
-class CamApp(App):
+class VerificationApp(App):
 
     def build(self):
         # Main layout components
 
-
-        self.icon = './resources/images/icon.png'  # Supports .png or .ico formats
-        
+        self.icon = './assets/images/appIcon.png'  # Supports .png or .ico formats
         # Optional: Set window icon (for desktop)
-        Window.set_icon('./resources/images/icon.png')
+        Window.set_icon('./assets/images/appIcon.png')
 
          # Set app title
-        self.title = 'TruelyYou'
-        
+        self.title = 'VerifyMe'
         # Optionally set window title directly
-        Window.set_title('TruelyYou')
-
+        Window.set_title('VerifyMe')
 
         # Create the webcam, button, and verification label
-
-
         self.webcam = KivyImage(size_hint=(1, .8)) # 1 mean full width, 0.8 mean 80% of the height
         self.button = Button(text="Verify", size_hint=(1, .1), on_press=self.on_verify_button_press)
         self.verification = Label(text="Verification Starting ... ", size_hint=(1, .1), markup=True) #Enable markup to use color in the text
@@ -63,32 +71,31 @@ class CamApp(App):
         layout.add_widget(self.verification)
 
         # Capture video from the camera
-        self.capture = cv2.VideoCapture(0)
+        self.capture = cv2.VideoCapture(0) # Modify the index to use different camera match your device
         Clock.schedule_interval(self.update, 1.0/30.0) # 30 fps
 
-         # Load the Siamese model
-        self.model = tf.keras.models.load_model('model_saved/fully_siamese_network.h5', custom_objects={'L1Dist': L1Dist})
+        # Load the Siamese model
+        try:
+            self.model = tf.keras.models.load_model(
+                'model_saved/fully_siamese_network.h5',
+                custom_objects={'L1Dist': L1Dist},
+                compile=False
+            )
+        except Exception as e:
+            Logger.error(f"Failed to load model: {e}")
+            return None
 
-
-        # When the user press the button, the app will capture the current frame and verify the face, specify
-        # on this line: self.button = Button(text="Verify", size_hint=(1, .1), on_press=self.on_verify_button_press)
-        
-
-
-        
-       
     
-
-
         return layout
     
+
+    ### Function to handle the button press, when press, take the current frame, crop the face, and verify the face###
     def on_verify_button_press(self, instance):
 
         """Handle verify button press"""
         if self.capture_frame is None:
             self.verification.text = "No frame captured"
             return
-
 
         # After user press the button, get the current frame, crop the face, and verify the face
         # Load the Haar Cascade Classifier for face detection
@@ -101,29 +108,27 @@ class CamApp(App):
             resized_face = cv2.resize(cropped_face, (250, 250))
         else:
             self.verification.text = "No face detected"
-            Logger.warning("No face detected in the frame")
+            Logger.warning("No face detected in the frame, try again")
             return
 
+
         # Specify arguments for the verify function
-        name = "cta2"
+        name = "cta"
         model = self.model
         detection_threshold = 0.5
         verification_threshold = 0.5
         LIMIT_IMAGES_TO_COMPARE = 5
 
-
-
-         # Call the verify function
+        # Call the verify function
         _, verification = self.verify(resized_face, name, model, detection_threshold, verification_threshold, LIMIT_IMAGES_TO_COMPARE)
 
-        # Change the label text based on the verification result
-        if verification:
-            self.verification.text = '[color=00ff00]Verification Successful[/color]'  # Green
-        else:
-            self.verification.text = '[color=ff0000]Verification Failed[/color]'  # Red
-
+        # Change the label text based on the verification result green for success, red for failure
+        self.verification.text = (
+                '[color=00ff00]Verification Successful[/color]' if verification 
+                else '[color=ff0000]Verification Failed[/color]'
+            )
     
-    # Run continuously to get the video feed
+    # Run continuously this function to get the video feed, the number pf fps = number of times this function is called per second
     def update(self, *args):
 
         # Read frame from openCV
@@ -139,6 +144,10 @@ class CamApp(App):
             self.webcam.texture = texture
 
 
+    '''
+    These below functions are just copy paste from Pipeline2 DataPreprocessing.ipynb
+    and Pipeline2 Siamense_Network.ipynb with slightly modify, so don care about these functions, just focus on the verify function
+    '''
 
     # Function for preprocessing the image (just copy from the Siamese_Network.ipynb)
     def preprocess(self, input_data):
@@ -177,7 +186,9 @@ class CamApp(App):
                 raise ValueError(f"Expected image with 3 dimensions, got shape {image.shape}")
             
             # Resize the image
-            image = tf.image.resize(image, (100, 100))
+            # Check the image size before resize
+            if image.shape[0] != 100 or image.shape[1] != 100:
+                image = tf.image.resize(image, (100, 100))
             
             # Smooth the image
             image = self.gaussian_blur(image, kernel_size=(3,3), sigma=0.1)
@@ -190,8 +201,6 @@ class CamApp(App):
         except Exception as e:
             Logger.error(f"Preprocessing error: {str(e)}")
             return None
-
-
 
 
     # Note that our preprocess function return a Tensorflow tensor, not a numpy array, so when need  to  perform image 
@@ -317,18 +326,13 @@ class CamApp(App):
 
 
         # Log out the confidence level (taken from results list)
-        Logger.info(f"total of iamges matched: {np.sum(np.array(results) > detection_threshold)}")
+        Logger.info(f"total of images matched: {np.sum(np.array(results) > detection_threshold)}")
         
 
         # Return the verification result for futher processing
         return results, verification
 
 
- 
-
-
-
-
+# Lauch the app
 if __name__ == '__main__':
-    CamApp().run()
-
+    VerificationApp().run()

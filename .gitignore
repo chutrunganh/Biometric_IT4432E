@@ -8,7 +8,7 @@ scaler.pkl
 svm_model.pkl
 
 # ignore the model checkpoint folder
-training_checkpoints
+model_saved/training_checkpoints
 
 # igonre all zip files
 *.zip

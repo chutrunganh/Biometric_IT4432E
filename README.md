@@ -24,7 +24,7 @@
 <div>
 
   <p align="center">
-    A cutting-edge 2D face recognition system based on deep learning
+    <b>A cutting-edge 2D face recognition system based on deep learning</b>
     <br />
     <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
     <br />
@@ -71,7 +71,7 @@
 
 
 <!-- ABOUT THE PROJECT -->
-# About The Project
+# 📝 About The Project 
 
 <div align="center">
     <img src="assets/images/demoUI.png" alt="Product Name Screen Shot">
@@ -87,17 +87,11 @@ Developed for the Biometric Course IT4432E (Semester 20241) at HUST, this projec
 2. Training a **Siamese netwrok architecture**  + **Distance layer** from scratch
 
 These approaches combine the convenience and accuracy of pre-trained models with the educational value of 
-training custom architectures from scratch. After training, we obtain models and use them to build applications with GUI using Kivy framework.
+training custom architectures from scratch. After training, we obtain models and use them to build applications with GUI using **Kivy** framework.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-
-> [!TIP]
-> If you only want to see the application demo, download it and follow the installation instructions on the release page and you can stop reading here.
-
-For those interested in our project's details, including structure, code, training process, evaluation, results, etc, you can join us in the following sections.
-
-### Built With
+## 🛠️ Built With
 
 The project is built with the following development tools, technologies:
 
@@ -125,50 +119,8 @@ The project is built with the following development tools, technologies:
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-
-<!-- GETTING STARTED -->
-## Getting Started
-
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
-
-### Prerequisites
-
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
-
-### Installation
-
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
-
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/github_username/repo_name.git
-   ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
-5. Change git remote url to avoid accidental pushes to base project
-   ```sh
-   git remote set-url origin github_username/repo_name
-   git remote -v # confirm the changes
-   ```
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
 <!-- USAGE EXAMPLES -->
-## Usage
+# 📖 Usage
 
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
@@ -178,25 +130,57 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 
 
-<!-- ROADMAP -->
-## Roadmap
+> [!TIP]
+> If you only want to see the application demo, download it and follow the installation instructions on the release page and you can stop reading here.
 
-- [x] Add Changelog
-- [x] Add back to top links
-- [ ] Add Additional Templates w/ Examples
-- [ ] Add "components" document to easily copy & paste sections of the readme
-- [ ] Multi-language Support
-    - [ ] Chinese
-    - [ ] Spanish
+For those interested in our project's details, including structure, code, training process, evaluation, results, etc, you can join us in the following sections.
 
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
+
+
+
+<!-- GETTING STARTED -->
+# 🚀 How to run this project
+
+This is the instruction of how you may give instructions on setting up your project locally.
+
+1. **Clone the repo**
+```bash
+git clone https://github.com/chutrunganh/Biometric_IT4432E.git
+```
+
+2. **Install dependencies**: running these commands inside the project folder
+
+```bash
+# Activate python virtual environment
+python3 -m venv venv
+source venv/bin/activate
+
+# Install pip tool if you haven't already
+sudo pacman -Syu base-devel python-pip
+pip install --upgrade pip setuptools wheel
+
+
+# Install all required dependencies inside the requirements.txt file
+pip install -r requirements.txt
+```
+
+It may take about 30 min to download all dependencies inside  of this requirements based on your internet speed.
+
+
+> [!NOTE]  
+> Above command is designed for Arch-based Linux only, for other distros or platforms, make a slight change to meet your system.
+
+
+3. **Run the application**: 
+You can either use Application_CLI.ipynb or Application_GUI.ipynb to run the application.
+
+
+# 🏗️ Code Structure 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
 <!-- CONTRIBUTING -->
-## Contributing
+## 🤝 Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
@@ -209,18 +193,9 @@ Don't forget to give the project a star! Thanks again!
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-### Top contributors:
-
-<a href="https://github.com/othneildrew/Best-README-Template/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=othneildrew/Best-README-Template" alt="contrib.rocks image" />
-</a>
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 <!-- LICENSE -->
-## License
+## 📜 License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
@@ -229,32 +204,13 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 
 <!-- CONTACT -->
-## Contact
+## 📧 Contact
 
 Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
 
 Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
-
-Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
-
-* [Choose an Open Source License](https://choosealicense.com)
-* [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
-* [Malven's Flexbox Cheatsheet](https://flexbox.malven.co/)
-* [Malven's Grid Cheatsheet](https://grid.malven.co/)
-* [Img Shields](https://shields.io)
-* [GitHub Pages](https://pages.github.com)
-* [Font Awesome](https://fontawesome.com)
-* [React Icons](https://react-icons.github.io/react-icons/search)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
@@ -288,62 +244,3 @@ Use this space to list resources you find helpful and would like to give credit 
 [Bootstrap-url]: https://getbootstrap.com
 [JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
 [JQuery-url]: https://jquery.com 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
--------------------------------------
-
-
-
-
->[!note]
->Testing Note annotation
-
-
-App Icon
-
-![AppIcon](resources/images/icon.png)
-
-Demo For UI
-
-![DemoUI](resources/images/demoUI.png)
-
-
-# How to run the project
-
-1. Install all required dependencies by running these commands inside the project folder
-
-```bash
-# Activate python virtual environment
-python3 -m venv venv
-source venv/bin/activate
-
-# Install pip tool if you haven't already
-sudo pacman -Syu base-devel python-pip
-pip install --upgrade pip setuptools wheel
-
-
-# Install all required dependencies inside the requirements.txt file
-pip install -r requirements.txt
-```
-
-> [!NOTE]  
-> Above command is designed for Arch-based Linux only, for other distros, please replace `pacman` with your package manager, or modify it to meet your system.
