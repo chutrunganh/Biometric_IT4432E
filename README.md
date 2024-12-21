@@ -172,7 +172,9 @@ It may take about 30 min to download all dependencies inside  of this requiremen
 > [!IMPORTANT]  
 > Above command is designed for Arch-based Linux only, for other distros or platforms, make a slight change to meet your system. For example, with Debian-based, replace `sudo pacman -Syu base-devel python-pip` by `sudo apt update && sudo apt upgrade -y && sudo apt install build-essential python3-pip`
 
+We are using python version 3.12. We teseted with 3.10 cause error discomaptiable
 
+3. Follow the code file from 1. to 4. (you can choose to just follow a Pipeline) and read instructiosn/run codes inside these file to generate and process date. Note this is a pipeline so don skip and file otherwise error will happen
 
 3. **Run the application**: 
 You can either use Application_CLI.ipynb or Application_GUI.ipynb to run the application.

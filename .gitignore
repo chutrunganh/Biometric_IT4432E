@@ -3,6 +3,7 @@ data/*
 !data/README.md
 data_backup/
 lfw/
+application_data/settings.json
 
 #ignore preprocessed_data folders
 preprocessed_data/face_detect/*
