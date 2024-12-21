@@ -7,7 +7,7 @@ import os
 import numpy as np
 from numpy import savez_compressed
 from PIL import Image
-from tensorflow.keras.layers import Layer
+from keras.layers import Layer
 import tensorflow as tf
 
 # For Kivy App

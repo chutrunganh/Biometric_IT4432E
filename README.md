@@ -169,7 +169,7 @@ pip install -r requirements.txt
 It may take about 30 min to download all dependencies inside  of this requirements based on your internet speed.
 
 
-> [!NOTE]  
+> [!IMPORTANT]  
 > Above command is designed for Arch-based Linux only, for other distros or platforms, make a slight change to meet your system. For example, with Debian-based, replace `sudo pacman -Syu base-devel python-pip` by `sudo apt update && sudo apt upgrade -y && sudo apt install build-essential python3-pip`
 
 
