@@ -4,6 +4,7 @@ data/*
 data_backup/
 lfw/
 application_data/settings.json
+crawl_data/
 
 #ignore preprocessed_data folders
 preprocessed_data/face_detect/*

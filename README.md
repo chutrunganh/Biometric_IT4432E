@@ -141,43 +141,68 @@ For those interested in our project's details, including structure, code, traini
 <!-- GETTING STARTED -->
 # 🚀 How to run this project
 
-This is the instruction of how you may give instructions on setting up your project locally.
+Follow these instructions to set up the project locally.
 
 1. **Clone the repo**
 ```bash
 git clone https://github.com/chutrunganh/Biometric_IT4432E.git
 ```
 
-2. **Install dependencies**: running these commands inside the project folder
+2. **Install dependencies**
+
+Navigate to the project folder:
 
 ```bash
 cd REPLACE_WITH_YOUR_PATH/Biometric_IT4432E
+```
 
+- With Linux
+
+```bash
 # Activate python virtual environment
 python3 -m venv venv
 source venv/bin/activate
 
 # Install pip tool if you haven't already
-sudo pacman -Syu base-devel python-pip
+sudo pacman -Syu base-devel python-pip # With Arch-based
+# sudo apt update && sudo apt upgrade -y && sudo apt install build-essential python3-pip  # With Debian-based, use this command instead
 pip install --upgrade pip setuptools wheel
 
-
-# Install all required dependencies inside the requirements.txt file
-pip install -r requirements.txt
+# Install all required dependencies 
+pip install -r requirements_for_Linux.txt
 ```
 
-It may take about 30 min to download all dependencies inside  of this requirements based on your internet speed.
+- With Windows
+
+```bash
+python -m venv venv
+.\venv\Scripts\activate.bat # If execute in CMD
+# .\venv\Scripts\activate.ps1 # If execute in PowerShell
+
+# Install pip tool if you haven't already
+python -m ensurepip --upgrade
+pip install --upgrade pip setuptools wheel
+
+# Install all required dependencies 
+pip install -r requirements_for_Windosn.txt
+
+# Install ipykernel in your virtual environment
+pip install ipykernel 
+python -m ipykernel install --user --name=venv --display-name "Python (venv)" # Create a new kernel for Jupyter
+
+```
+
+Choose the kernel named `venv` when running Jupyter Notebook.
+
+It may take about 15-30 minutes to download all dependencies, depending on your internet speed.
 
 
 > [!IMPORTANT]  
-> Above command is designed for Arch-based Linux only, for other distros or platforms, make a slight change to meet your system. For example, with Debian-based, replace `sudo pacman -Syu base-devel python-pip` by `sudo apt update && sudo apt upgrade -y && sudo apt install build-essential python3-pip`
+> This project requires Python 3.12.x. Some other versions, such as 3.10.x, have been reported to have compatibility issues with dependencies.
 
-We are using python version 3.12. We teseted with 3.10 cause error discomaptiable
+3. **Follow the code files**
 
-3. Follow the code file from 1. to 4. (you can choose to just follow a Pipeline) and read instructiosn/run codes inside these file to generate and process date. Note this is a pipeline so don skip and file otherwise error will happen
-
-3. **Run the application**: 
-You can either use Application_CLI.ipynb or Application_GUI.ipynb to run the application.
+Follow the code files from 1 to 4 (you can choose to just follow Pipeline1 or Pipeline2) and read the instructions, run the code inside these files to generate and process data. Note that this is a pipeline, so do not skip any files; otherwise, errors will occur due to missing files.
 
 
 # 🏗️ Code Structure 
