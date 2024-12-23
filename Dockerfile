@@ -23,12 +23,10 @@ COPY 4.CLI_version_for_Docker.py /app/
 # Copy the model_saved/Siamese_model directory into the container
 COPY model_saved/fully_siamese_network.h5 /app/
 
-# # Install dependencies
-# RUN pip install --upgrade pip setuptools wheel && \
-#     pip install opencv-python
+# Install dependencies
+RUN pip install --upgrade pip setuptools wheel && \
+    pip install opencv-python
 
-# Install required dependencies
-RUN pip install opencv-python-headless
 
 # Add the default user to the video group
 RUN usermod -aG video root

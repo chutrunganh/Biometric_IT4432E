@@ -1,5 +1,5 @@
 """---------------------------------------------------------Import all the necessary libraries---------------------------------------------------------"""
-
+# pip install kivy[base] kivy[full]
 
 # For functions related to Deep Learning model and image processing
 import cv2
