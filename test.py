@@ -62,7 +62,7 @@ class CameraDetectionDialog(QDialog):
         super().__init__(parent)
         self.detected_cameras = [] # List of detected cameras
         self.preferred_camera = None # Between detected cameras, store the camera that user select to use
-        self.SETTINGS_FILE_PATH = SETTINGS_FILE_PATH
+        global SETTINGS_FILE_PATH 
         self.setup_ui()
 
         
@@ -74,7 +74,6 @@ class CameraDetectionDialog(QDialog):
         # Creates a display area for camera feed
         self.camera_feed_display = QLabel() # creates a widget that can display text/images - here used as video preview area  
         self.camera_feed_display.setMinimumSize(640, 480)  # Sets minimum dimensions in pixels, ensures display area won't shrink smaller than VGA resolution
-        self.camera_feed_display.setScaledContents(True)  # Scale content to fit
         layout.addWidget(self.camera_feed_display)
         # Setup preview timer to update the camera feed
         self.cap = None
@@ -184,6 +183,7 @@ class CameraDetectionDialog(QDialog):
             try:
                 with open(SETTINGS_FILE_PATH, 'w') as f:
                     json.dump(settings, f)
+                QMessageBox.information(self, "Success", "Camera settings saved successfully to " + SETTINGS_FILE_PATH)
                 # Update global CAM_ID
                 global CAM_ID
                 CAM_ID = preferred_camera
@@ -211,47 +211,34 @@ class FaceVerificationUI(QMainWindow):
         self.setWindowTitle("Face Verification System")
         # Set minimum size instead of fixed geometry
         self.setMinimumSize(640, 480)  # Minimum usable size for camera feed
-        self.resize(800, 600)  # Default size but resizable
         
-        # Load all our models
-        self.init_models()
-        
+        global SETTINGS_FILE_PATH 
+        global VALIDATION_PATH 
+        global CAM_ID
+        global DETECTION_THRESHOLD
+        global VERIFICATION_THRESHOLD
+        global LIMIT_IMAGES_TO_COMPARE
+
         # Setup main UI components 
         self.setup_ui()
         
         # Initialize camera
         self.setup_camera()
-        
 
+        # Load all our models
+        self.init_models()
 
-    def check_camera_settings(self):
-        SETTINGS_FILE_PATH = 'application_data/settings.json'
-        if not os.path.exists(SETTINGS_FILE_PATH):
-            dialog = CameraDetectionDialog(self)
-            if dialog.exec() == QDialog.accepted:
-                settings = {
-                    "camera_list": dialog.detected_cameras,
-                    "preferred_camera": dialog.get_selected_camera()
-                }
-                with open(SETTINGS_FILE_PATH, 'w') as f:
-                    json.dump(settings, f)
-
-    def init_models(self):
-        self.detector = MTCNN()
-        self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-        self.facenet_model = InceptionResnetV1(pretrained='vggface2').eval().to(self.device)
-        
-        with open('./model_saved/scaler.pkl', 'rb') as f:
-            self.scaler = pickle.load(f)
-        with open('./model_saved/svm_model.pkl', 'rb') as f:
-            self.svm_model = pickle.load(f)
-
+  
+    # =========================================================================================================
+    # Set up the main UI 
+    # ==========================================================================================================
     def setup_ui(self):
+        # UI components are created top to bottom inside a QVBoxLayout
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
         layout = QVBoxLayout(central_widget)
 
-        # Create tabs
+        # Create two tabs, one for registration and one for verification
         self.tabs = QTabWidget()
         self.register_tab = self.create_register_tab()
         self.verify_tab = self.create_verify_tab()
@@ -259,10 +246,11 @@ class FaceVerificationUI(QMainWindow):
         self.tabs.addTab(self.verify_tab, "Verify")
         layout.addWidget(self.tabs)
 
-        # Status bar
+        # Status bar to display information about the app execution like verification result, registration result, error messages,...
         self.status_label = QLabel()
         layout.addWidget(self.status_label)
 
+    # Create the register tab
     def create_register_tab(self):
         tab = QWidget()
         layout = QVBoxLayout(tab)
@@ -272,7 +260,7 @@ class FaceVerificationUI(QMainWindow):
         self.register_username.setPlaceholderText("Enter username to register")
         layout.addWidget(self.register_username)
 
-        # Camera preview
+        # Camera preview feed
         self.register_camera_label = QLabel()
         layout.addWidget(self.register_camera_label)
 
@@ -288,6 +276,7 @@ class FaceVerificationUI(QMainWindow):
 
         return tab
 
+    # Create the verify tab
     def create_verify_tab(self):
         tab = QWidget()
         layout = QVBoxLayout(tab)
@@ -297,7 +286,7 @@ class FaceVerificationUI(QMainWindow):
         self.verify_username.setPlaceholderText("Enter username to verify")
         layout.addWidget(self.verify_username)
 
-        # Camera preview
+        # Camera preview feed
         self.verify_camera_label = QLabel()
         layout.addWidget(self.verify_camera_label)
 
@@ -307,36 +296,12 @@ class FaceVerificationUI(QMainWindow):
         layout.addWidget(self.verify_btn)
 
         return tab
-
-    def setup_camera(self):
-        
-        self.check_camera_settings()
-        
-        # Read camera settings
-
-        with open('application_data/settings.json', 'r') as f:
-            settings = json.load(f)
-            self.cam_id = settings['preferred_camera']
-
-        self.cap = cv2.VideoCapture(self.cam_id)
-        self.timer = QTimer()
-        self.timer.timeout.connect(self.update_frame)
-        self.timer.start(30)
-
-    def update_frame(self):
-        ret, frame = self.cap.read()
-        if ret:
-            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            h, w, ch = frame.shape
-            bytes_per_line = ch * w
-            qt_image = QImage(frame.data, w, h, bytes_per_line, QImage.Format.Format_RGB888)
-            pixmap = QPixmap.fromImage(qt_image)
-            
-            if self.tabs.currentIndex() == 0:
-                self.register_camera_label.setPixmap(pixmap.scaled(640, 480))
-            else:
-                self.verify_camera_label.setPixmap(pixmap.scaled(640, 480))
-
+    
+    #=============================================================================================================
+    # Utility functions for the main UI
+    #=============================================================================================================
+    
+    ### UI inside the register tab ###
     def capture_image(self):
         username = self.register_username.text()
         if not username:
@@ -345,12 +310,12 @@ class FaceVerificationUI(QMainWindow):
 
         ret, frame = self.cap.read()
         if ret:
-            user_folder = f'application_data/validation_images/{username}'
+            # Store user image to the validation folder, inside a subfolder named after the username
+            user_folder = os.path.join(VALIDATION_PATH, username)
             os.makedirs(user_folder, exist_ok=True)
             img_path = os.path.join(user_folder, f"{uuid.uuid4()}.jpg")
             cv2.imwrite(img_path, frame)
-            self.status_label.setText(f"Image captured: {img_path}")
-
+            self.status_label.setText(f"Image captured and store inside: {img_path}")
     def complete_registration(self):
         username = self.register_username.text()
         if not username:
@@ -358,12 +323,14 @@ class FaceVerificationUI(QMainWindow):
             return
 
         try:
-            self.process_user_images(username)
+            # From images captured, process the images to extract the face, then generate embeddings for the faces
+            self.face_detection(username)
             self.generate_embeddings(username)
             QMessageBox.information(self, "Success", "Registration completed successfully")
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Registration failed: {str(e)}")
 
+    ### UI inside the verify tab ###
     def verify_user(self):
         username = self.verify_username.text()
         if not username:
@@ -383,34 +350,110 @@ class FaceVerificationUI(QMainWindow):
             except Exception as e:
                 QMessageBox.critical(self, "Error", f"Verification error: {str(e)}")
 
-    def process_user_images(self, username):
-        """Process and store user images for face verification"""
-        store_location = 'application_data/validation_images'
-        user_folder = os.path.join(store_location, username)
-        face_folder = os.path.join(user_folder, 'face')
-        os.makedirs(face_folder, exist_ok=True)
-        
-        # First capture images
-        try:
-            cap = cv2.VideoCapture(0)
-            captured_images = []
-            
-            while len(captured_images) < 5:  # Capture 5 images
-                ret, frame = cap.read()
-                if not ret:
-                    raise Exception("Failed to capture image")
+    #=============================================================================================================
+    # Set up the camera
+    #=============================================================================================================
+
+    # Check if the setting.json file exists, if not, open the camera detection window to let user select the camera
+    # If the file exists, show up a message box to inform user that the setting file is already there
+    def check_camera_settings(self):
+
+        if os.path.exists(SETTINGS_FILE_PATH):
+
+            # Show message box to inform user that the setting file is already there
+            QMessageBox.information(
+            self,
+            "Settings Found",
+            f"Settings file already exists at:\n{SETTINGS_FILE_PATH}\n\nIf you wish to change the camera settings, please delete the file and restart the application."
+        )
+    
+        else:
+            dialog = CameraDetectionDialog(self)
+            if dialog.exec() != QDialog.DialogCode.Accepted:
+                sys.exit(1)
                 
-                self.status_label.setText(f"Capturing image {len(captured_images) + 1}/5...")
-                captured_images.append(frame)
-                cv2.waitKey(1000)  # Wait 1 second between captures
+        # Open the settings file and read the preferred camera, assign the value to the global CAM_ID
+        global CAM_ID # cahnge the golbal CAM_ID to the selected camera
+        with open(SETTINGS_FILE_PATH, 'r') as f:
+            settings = json.load(f)
+            CAM_ID = settings['preferred_camera']
+            self.status_label.setText(f"Using camera {CAM_ID}")
+    
+    def setup_camera(self):
+        
+        # Get the preferred camera from the settings file
+        self.check_camera_settings()
+
+        self.cap = cv2.VideoCapture(CAM_ID)
+        self.timer = QTimer()
+        self.timer.timeout.connect(self.update_frame)
+        self.timer.start(30)
+
+    # Update the camera feed, show the camera feed in the label
+    def update_frame(self):
+        ret, frame = self.cap.read()
+        if ret:
+            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            h, w, ch = frame.shape
+            bytes_per_line = ch * w
+            qt_image = QImage(frame.data, w, h, bytes_per_line, QImage.Format.Format_RGB888)
+            pixmap = QPixmap.fromImage(qt_image)
             
-            cap.release()
+            if self.tabs.currentIndex() == 0:
+                self.register_camera_label.setPixmap(pixmap.scaled(640, 480))
+            else:
+                self.verify_camera_label.setPixmap(pixmap.scaled(640, 480))
+        
+    # ==============================================================================================================
+    # Set up model and the enrollment/recognition, verification process backend
+    # ==============================================================================================================
+
+    # Try to load models, if failed, show a message box to inform user that the model is not found
+    def init_models(self):
+        try:
+            self.detector = MTCNN()
+            self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+            self.facenet_model = InceptionResnetV1(pretrained='vggface2').eval().to(self.device)
             
-            # Process captured images
+            with open('./model_saved/scaler.pkl', 'rb') as f:
+                self.scaler = pickle.load(f)
+            with open('./model_saved/svm_model.pkl', 'rb') as f:
+                self.svm_model = pickle.load(f)
+                
+        except FileNotFoundError:
+            self.status_label.setText("Error: Required model files not found in ./model_saved/")
+            QMessageBox.critical(
+                self,
+                "Model Files Not Found",
+                "Required model files not found in ./model_saved/\n\nPlease ensure that the model files are placed in the correct directory."
+            )
+            raise
+        except Exception as e:
+            self.status_label.setText(f"Error initializing models: {str(e)}")
+            raise
+
+    
+    ### Enrollemnt/ Registration Process ###
+    # Detect and crop images by faces
+    def face_detection(self, username):
+        user_folder = os.path.join(VALIDATION_PATH, username)
+        face_folder = os.path.join(user_folder, 'face') 
+        os.makedirs(face_folder, exist_ok=True) # create the face folder inside the user name  folder
+        
+        try:
+            # Get list of images from user folder
+            image_files = [f for f in os.listdir(user_folder) if f.endswith(('.jpg', '.jpeg', '.png'))]
+            if not image_files:
+                raise Exception("No images found in user folder")
+                
+            self.status_label.setText("Processing images...")
             detector = MTCNN()
             faces = []
             
-            for i, image in enumerate(captured_images):
+            # Process each image
+            for image_file in image_files:
+                image_path = os.path.join(user_folder, image_file)
+                image = cv2.imread(image_path)
                 image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
                 detections = detector.detect_faces(image_rgb)
                 
@@ -419,9 +462,13 @@ class FaceVerificationUI(QMainWindow):
                     face = image_rgb[y:y+height, x:x+width]
                     face_image = Image.fromarray(face).resize((160, 160))
                     faces.append(np.array(face_image))
+            
+            if not faces:
+                raise Exception("No faces detected in any images")
                 
-            faces = np.array(faces)
-            savez_compressed(os.path.join(face_folder, 'faces.npz'), faces)
+            # Save processed faces
+            faces_array = np.array(faces)
+            savez_compressed(os.path.join(face_folder, 'faces.npz'), faces_array)
             self.status_label.setText("Face processing completed!")
             return True
             
@@ -429,16 +476,15 @@ class FaceVerificationUI(QMainWindow):
             self.status_label.setText(f"Error processing images: {str(e)}")
             return False
 
+    # With from all the images, generate the embeddings for the faces, store the embeddings in the user folder
     def generate_embeddings(self, username):
-        """Generate face embeddings for the processed images"""
         try:
-            store_location = 'application_data/validation_images'
-            user_folder = os.path.join(store_location, username)
+            user_folder = os.path.join(VALIDATION_PATH, username)
             face_folder = os.path.join(user_folder, 'face')
             embedding_folder = os.path.join(user_folder, 'embeddings')
-            os.makedirs(embedding_folder, exist_ok=True)
+            os.makedirs(embedding_folder, exist_ok=True) # create the embedding folder inside the user name  folder
             
-            # Load FaceNet model
+            # Load FaceNet model to extract embeddings
             device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
             facenet_model = InceptionResnetV1(pretrained='vggface2').eval().to(device)
             
@@ -472,8 +518,10 @@ class FaceVerificationUI(QMainWindow):
             self.status_label.setText(f"Error generating embeddings: {str(e)}")
             return False
 
+    ###  Verification Process ###
+
+    # Similiar to the generate_embeddings function, but design to only work with a single image, instead of a folder of images
     def generate_single_embedding(self, face_array):
-        """Generate embedding for a single face"""
         try:
             device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
             facenet_model = InceptionResnetV1(pretrained='vggface2').eval().to(device)
@@ -496,12 +544,13 @@ class FaceVerificationUI(QMainWindow):
         except Exception as e:
             raise Exception(f"Error generating embedding: {str(e)}")
 
+    # From login image, extract the face, generate the embedding, then compare the embedding with the stored embeddings
     def verify_face(self, frame, username):
-        """Verify if the input face matches the stored user face"""
         try:
             # Check if user exists
-            user_path = os.path.join('application_data/validation_images', username)
+            user_path = os.path.join(VALIDATION_PATH, username)
             if not os.path.exists(user_path):
+                QMessageBox.warning(self, "Error", "User not found in the system")
                 raise Exception("User not found in the system")
 
             # Extract face and generate embedding
@@ -538,17 +587,22 @@ class FaceVerificationUI(QMainWindow):
                 # Scale features
                 pair_scaled = self.scaler.transform([pair])
                 
-                # Get prediction
+                # Get prediction with probability
                 prediction = self.svm_model.predict(pair_scaled)[0]
-                results.append(prediction)
-            
-            # Calculate verification result
-            threshold = 0.8
-            positive_matches = sum(results)
-            total_comparisons = len(results)
-            
-            verification_result = (positive_matches / total_comparisons) > threshold
-            return verification_result
+                probability = self.svm_model.predict_proba(pair_scaled)[0]
+
+                # Add detection threshold
+                global DETECTION_THRESHOLD# Minimum confidence required for a match
+                if probability[1] >= DETECTION_THRESHOLD:  # probability[1] is confidence for positive class
+                    results.append(prediction)
+
+                # Calculate final verification with validation threshold
+                global VERIFICATION_THRESHOLD # Minimum proportion of positive matches required
+                positive_matches = sum(results)
+                total_comparisons = len(results)
+
+                verification_result = (positive_matches / total_comparisons) > VERIFICATION_THRESHOLD if total_comparisons > 0 else False
+                return verification_result
             
         except Exception as e:
             raise Exception(f"Verification error: {str(e)}")
