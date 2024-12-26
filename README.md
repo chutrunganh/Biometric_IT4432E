@@ -1,12 +1,6 @@
 
 <a id="readme-top"></a>
 
-
-<!-- PROJECT SHIELDS, for these shield-url, view shields.io for more options -->
-<!-- [![MIT License][license-shield]][license-url] -->
-<!-- [![LinkedIn][linkedin-shield]][linkedin-url] -->
-
-
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
@@ -43,25 +37,18 @@
 <details>
   <summary><b>Table of Contents</b></summary>
   <ol>
+    <li><a href="#-about-the-project">About The Project</a></li>
+    <li><a href="#-usage">Usage and Demo</a></li>
     <li>
-      <a href="#about-the-project">About The Project</a>
+      <a href="#-how-to-run-this-project">How to run this project</a>
       <ul>
-        <li><a href="#built-with">Built With</a></li>
+        <li><a href="#option-1-quick-view-of-model-training">Option 1: Quick View</a></li>
+        <li><a href="#option-2-complete-project-setup">Option2: Complete project  setup locally</a></li>
       </ul>
     </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
+    <li><a href="#️-code-structure">Code structure and workflow</a></li>
+    <li><a href="#-contributing">Contributing</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
@@ -91,7 +78,7 @@ training custom architectures from scratch. After training, we obtain models and
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-## 🛠️ Built With
+## 🛠️ Built With 
 
 The project is built with the following development tools, technologies:
 
@@ -121,7 +108,7 @@ The project is built with the following development tools, technologies:
 
 
 <!-- USAGE EXAMPLES -->
-# 📖 Usage
+# 📖 Usage and Demo
 
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
@@ -215,7 +202,7 @@ It may take about 15-30 minutes to download all dependencies, depending on your 
 Follow the code files from 1 to 4 (you can choose to just follow Pipeline1 or Pipeline2) and read the instructions, run the code inside these files to generate and process data. Note that this is a pipeline, so do not skip any files; otherwise, errors will occur due to missing files.
 
 
-# 🏗️ Code Structure 
+# 🏗️ Code Structure and Workflow
 
 Here are main components of the project with their respective functionalities:
 
@@ -285,6 +272,17 @@ Don't forget to give the project a star! Thanks again!
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
+
+For the success of this project, I want a special thanks to:
+
+- **Project supervisor**: Dr. Tran Nguyen Ngoc, Dr. Ngo Thanh Trung
+- **Team members**:
+
+  | Name | Student ID |
+  |:--|:--|
+  | Chu Trung Anh (team leader)| 20225564 |
+  | Bui Duy Anh | 20225563 |
+  | Pham Minh Tien | 20225555 |
 
 
 <!-- LICENSE -->
