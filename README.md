@@ -29,7 +29,7 @@
     <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
+    <a href="https://github.com/othneildrew/Best-README-Template">Usage</a>
     ·
     <a href="https://github.com/othneildrew/Best-README-Template/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
     ·
@@ -84,10 +84,10 @@ Developed for the Biometric Course IT4432E (Semester 20241) at HUST, this projec
 
 1. Using a pre-trained Model (**FaceNet**) for features extraction, then use those features to train a **Support Vector Machine** model for classification
 
-2. Training a **Siamese netwrok architecture**  + **Distance layer** from scratch
+2. Training a **Siamese netwrok architecture**  + **L1 Distance layer** from scratch
 
 These approaches combine the convenience and accuracy of pre-trained models with the educational value of 
-training custom architectures from scratch. After training, we obtain models and use them to build applications with GUI using **Kivy** framework.
+training custom architectures from scratch. After training, we obtain models and use them to build applications with GUI using **PyQT6** and **Kivy** framework.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
@@ -142,12 +142,15 @@ For those interested in our project's details, including structure, code, traini
 <!-- GETTING STARTED -->
 # 🚀 How to run this project
 
-If you only want to see the training model file, see this version on kaggle:
+## Option 1: Quick View of Model Training
+Just want to see the model training process? Check out our Kaggle notebooks:
+- [SVM Classifier Pipeline](https://www.kaggle.com/code/trunganhchu/svm-classifier)
+- [Siamese Network Pipeline](https://www.kaggle.com/code/trunganhchu/siamese)
 
-- [Pipeline1 SVM Classfier](https://www.kaggle.com/code/trunganhchu/svm-classifier)
-- [Pipeline2 Siamese Network](https://www.kaggle.com/code/trunganhchu/siamese)
+## Option 2: Complete Project Setup
+Want to explore the full project including data preprocessing, training, and application? Follow our instruction below.
 
-Follow these instructions to set up the project locally.
+### Installation
 
 1. **Clone the repo**
 ```bash
@@ -217,52 +220,60 @@ Follow the code files from 1 to 4 (you can choose to just follow Pipeline1 or Pi
 Here are main components of the project with their respective functionalities:
 
 ```plain text
-BioMetric_IT4432E
+Biometric_IT4432E
 |
-|--- requirements.txt -> contains all required dependencies
+|── Slide_And_Report 
 |
-|--- readme.md -> contains project information
+|── requirements_for_Linux/Windows.txt -> contains all required dependencies to run on local
+|    
+|── data -> contains images for training models
 |
-|--- application_data
-|     └---validation_images -> contains images for validation
-|      
-|--- data -> contains images for training models
+|── model_saved -> store models after training
 |
-|--- model_saved -> contains trained models
+|── preprocessing_data -> contains preprocessed data for Pipeline1
+|     |── faces.npz -> contains compress faces data
+|     └── embeddings.npz -> contains compress embeddings data
 |
-|--- preprocessing_data -> contains preprocessed data for Pipeline1
-|     |--- faces.npz -> contains compress faces data
-|     └--- embeddings.npz -> contains compress embeddings data
+|── preprocessing_data(for_Siamese) -> contains preprocessed data for Pipeline2
+|     └── faces.npz -> contains compress faces data
 |
-|--- preprocessing_data(for_Siamese) -> contains preprocessed data for Pipeline2
-|     └--- faces.npz -> contains compress faces data
+|── application_data
+|     |──validation_images -> contains images from enrollment process
+|     |   |──user1
+|     |   |──user2
+|     |   └──...
+|     |  
+|     └── settings.json -> store deteced camera index
 |
-|--- 1.DataCollection.ipynb -> Collect data for training
-|--- 2.Pipeline1 DataPreprocessing.ipynb -> Preprocess data, face detector, extract feature (using FaceNet)
-|--- 2.Pipeline2 DataPreprocessing.ipynb -> Preprocess data for Siamese Network
-|--- 3.Pipeline1 SVM_Classifier.ipynb -> Train SVM model
-|--- 3.Pipeline2 Siamese_Network.ipynb -> Train Siamese Network
-|--- 4.Pipeline1 Application_FaceNet_SVM_CLI.ipynb -> Application using FaceNet + SVM model
-|--- 4.Pipeline2 Application_Siamese_Network_CLI.ipynb -> Application using Siamese Network
-└--- 4.Pipeline2 Application_Siamese_Network_GUI.py -> Application using Siamese Network with GUI
+|── 1.DataCollection.ipynb -> Collect data for training
+|
+|── 2.Pipeline1 DataPreprocessing.ipynb -> Preprocess data,face detector (using MTCNN),extract feature (using FaceNet)
+|
+|── 2.Pipeline2 DataPreprocessing.ipynb -> Preprocess data for Siamese Network
+|
+|── 3.Pipeline1 SVM_Classifier.ipynb -> Train SVM model
+|
+|── 3.Pipeline2 Siamese_Network.ipynb -> Train Siamese architecture network
+|
+|── 4.Pipeline1 Application_FaceNet_SVM_CLI.ipynb
+| 
+|── 4.Pipeline1 Application_FaceNet_SVM_GUI.py
+|
+|── 4.Pipeline2 Application_Siamese_Network_CLI.ipynb 
+|
+└── 4.Pipeline2 Application_Siamese_Network_GUI.py 
 
 ```
 
 And here is the workflow of the project:
 
-```plain text
+![Project Workflow](assets/images/ProjectWorkflow.png)
 
-                                  / 2.Pipeline1 DataPreprocessing.ipynb -> preprocessing_data folder -> 3.Pipeline1 SVM_Classifier.ipynb -> model_saved folder -> 4.Pipeline1 Application_FaceNet_SVM_CLI.ipynb + application_data/validation_images folder
-                                /
-1.DataCollection.ipynb -> data /
-                                \
-                                  \ 2.Pipeline2 DataPreprocessing.ipynb -> preprocessing_data(for_Siamese) folder -> 3.Pipeline2 Siamese_Network.ipynb -> model saved_folder -> 4.Pipeline2 Application_Siamese_Network_CLI.ipynb/4.Pipeline2 Application_Siamese_Network_GUI.py + application_data/validation_images folder
-```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTRIBUTING -->
-## 🤝 Contributing
+# 🤝 Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
