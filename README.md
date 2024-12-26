@@ -101,6 +101,7 @@ The project is built with the following development tools, technologies:
 ![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
 ![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
 ![Windows 11](https://img.shields.io/badge/Windows%2011-%230079d5.svg?style=for-the-badge&logo=Windows%2011&logoColor=white)
+![Qt](https://img.shields.io/badge/Qt-%23217346.svg?style=for-the-badge&logo=Qt&logoColor=white)
 
 
 ![Matplotlib](https://img.shields.io/badge/Matplotlib-%23ffffff.svg?style=for-the-badge&logo=Matplotlib&logoColor=black)
@@ -140,6 +141,11 @@ For those interested in our project's details, including structure, code, traini
 
 <!-- GETTING STARTED -->
 # 🚀 How to run this project
+
+If you only want to see the training model file, see this version on kaggle:
+
+- [Pipeline1 SVM Classfier](https://www.kaggle.com/code/trunganhchu/svm-classifier)
+- [Pipeline2 Siamese Network](https://www.kaggle.com/code/trunganhchu/siamese)
 
 Follow these instructions to set up the project locally.
 
@@ -198,9 +204,10 @@ It may take about 15-30 minutes to download all dependencies, depending on your 
 
 
 > [!IMPORTANT]  
-> This project requires Python 3.12.x. Some other versions, such as 3.10.x, have been reported to have compatibility issues with dependencies.
+> This project requires **Python 3.12.x**. Some other versions, such as 3.10.x, have been reported to have compatibility issues with dependencies.
 
 3. **Follow the code files**
+
 
 Follow the code files from 1 to 4 (you can choose to just follow Pipeline1 or Pipeline2) and read the instructions, run the code inside these files to generate and process data. Note that this is a pipeline, so do not skip any files; otherwise, errors will occur due to missing files.
 

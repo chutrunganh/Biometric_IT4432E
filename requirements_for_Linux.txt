@@ -4,6 +4,7 @@ albumentations==1.4.21
 annotated-types==0.7.0
 asttokens==3.0.0
 astunparse==1.6.3
+bing-image-downloader==1.1.2
 certifi==2024.8.30
 charset-normalizer==3.4.0
 comm==0.2.2

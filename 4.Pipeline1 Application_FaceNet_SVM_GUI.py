@@ -323,6 +323,7 @@ class FaceVerificationUI(QMainWindow):
             return
 
         try:
+            self.status_label.setText("Waiting while the embeddings are generated...")
             # From images captured, process the images to extract the face, then generate embeddings for the faces
             self.face_detection(username)
             self.generate_embeddings(username)
@@ -578,7 +579,7 @@ class FaceVerificationUI(QMainWindow):
             
             # Compare embeddings
             results = []
-            for stored_embedding in stored_embeddings:
+            for stored_embedding in stored_embeddings[:LIMIT_IMAGES_TO_COMPARE]:
                 # Prepare pair for comparison
                 input_flat = input_embedding.flatten()
                 stored_flat = stored_embedding.flatten()
