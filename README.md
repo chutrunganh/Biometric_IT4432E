@@ -71,7 +71,7 @@ Developed for the Biometric Course IT4432E (Semester 20241) at HUST, this projec
 
 1. Using a pre-trained Model (**FaceNet**) for features extraction, then use those features to train a **Support Vector Machine** model for classification
 
-2. Training a **Siamese netwrok architecture**  + **L1 Distance layer** from scratch
+2. Training a **Siamese network architecture**  + **L1 Distance layer** from scratch
 
 These approaches combine the convenience and accuracy of pre-trained models with the educational value of 
 training custom architectures from scratch. After training, we obtain models and use them to build applications with GUI using **PyQT6** and **Kivy** framework.
