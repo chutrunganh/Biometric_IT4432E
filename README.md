@@ -61,7 +61,7 @@
 # 📝 About The Project 
 
 <div align="center">
-    <img src="assets/images/demoUI.png" alt="Product Name Screen Shot">
+    <img src="assets/images/AppDemoUI.png" alt="Product Name Screen Shot">
 </div>
 
 <br />
@@ -128,6 +128,8 @@ Enter your name and take a series of photos to enroll in the system.
 ![alt text](assets/images/LoginWindow.png)
 
 Enter your name and take a photo to verify your identity.
+
+*Due to the privacy, we do not show our team camera in the demo. You can download the application and try by yourself.*
 
 _For more detail usage and explaination, please refer to the [Documentation](https://github.com/chutrunganh/Biometric_IT4432E/blob/master/Slide_And_Report/Biometric_Report.pdf)_
 
