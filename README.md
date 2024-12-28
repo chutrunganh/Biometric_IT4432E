@@ -46,9 +46,9 @@
         <li><a href="#option-2-complete-project-setup">Option2: Complete project  setup locally</a></li>
       </ul>
     </li>
-    <li><a href="#️-code-structure">Code structure and workflow</a></li>
+    <li><a href="#️-code-structure-and-workflow">Code structure and workflow</a></li>
     <li><a href="#-contributing">Contributing</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#-contact">Contact</a></li>
   </ol>
 </details>
 
@@ -201,6 +201,7 @@ It may take about 15-30 minutes to download all dependencies, depending on your 
 
 Follow the code files from 1 to 4 (you can choose to just follow Pipeline1 or Pipeline2) and read the instructions, run the code inside these files to generate and process data. Note that this is a pipeline, so do not skip any files; otherwise, errors will occur due to missing files.
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 # 🏗️ Code Structure and Workflow
 
