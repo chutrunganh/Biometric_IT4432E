@@ -220,7 +220,7 @@ Follow the code files from 1 to 4 (you can choose to just follow Pipeline1 or Pi
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ---
-Like this project? Give a star 🌟 to SNMP Browser and make it even stronger! 💪
+Like this project? Give a star 🌟 to VerifyMe and make it even stronger! 💪
 
 ---
 
